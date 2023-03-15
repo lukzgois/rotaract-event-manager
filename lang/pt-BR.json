@@ -128,5 +128,7 @@
     "Saved.": "Salvou",
     "The given data was invalid." : "Os dados fornecidos são inválidos.",
     "(and :count more error)": "(e mais :count erro)",
-    "(and :count more errors)": "(e mais :count erros)"
+    "(and :count more errors)": "(e mais :count erros)",
+    "Birth Date": "Data de nascimento",
+    "Nickname": "Apelido"
 }

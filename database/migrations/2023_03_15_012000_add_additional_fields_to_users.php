@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('club_id')->constrained();
             $table->text('address');
             $table->text('city');
+            $table->text('state');
+            $table->text('zip_code');
             $table->boolean('is_guest');
             $table->enum('blood_type', [
                 'a+', 'b+', 'ab+', 'o+', 'a-', 'b-', 'ab-', 'o-'
@@ -45,6 +47,8 @@ return new class extends Migration
             $table->dropColumn('club_id');
             $table->dropColumn('address');
             $table->dropColumn('city');
+            $table->dropColumn('state');
+            $table->dropColumn('zip_code');
             $table->dropColumn('is_guest');
             $table->dropColumn('blood_type');
             $table->dropColumn('emergency_contact_name');
