@@ -190,3 +190,57 @@ it('validates the agreed (accepted)', function ($value) {
 
     $response->assertValid(['agreed']);
 })->with([true, 'true', 1, 'on']);
+
+it('validates the cpf (invalid value)', function ($value) {
+    $response = $this->post('/register', [
+        'cpf' => $value
+    ]);
+
+    $response->assertInvalid([
+        'cpf' => 'O campo cpf não é um CPF válido.'
+    ]);
+})->with(['invalid', '11111111111', '111.111.111-11']);
+
+it('validates the cpf (valid value)', function ($value) {
+    $response = $this->post('/register', [
+        'cpf' => $value
+    ]);
+
+    $response->assertValid(['cpf']);
+})->with(['75717418078', '512.805.870-08']);
+
+it('validates the phone (invalid value)', function ($value) {
+    $response = $this->post('/register', [
+        'phone' => $value
+    ]);
+
+    $response->assertInvalid([
+        'phone' => 'O campo telefone não é um celular com DDD válido.'
+    ]);
+})->with(['invalid', '9999-9999', '99999-9999']);
+
+it('validates the phone (valid value)', function ($value) {
+    $response = $this->post('/register', [
+        'phone' => $value
+    ]);
+
+    $response->assertValid(['phone']);
+})->with(['(11) 1234-1234', '(11) 12345-1234', '(11)12345-1234']);
+
+it('validates the emergency_contact_phone (invalid value)', function ($value) {
+    $response = $this->post('/register', [
+        'emergency_contact_phone' => $value
+    ]);
+
+    $response->assertInvalid([
+        'emergency_contact_phone' => 'O campo telefone de emergência não é um celular com DDD válido.'
+    ]);
+})->with(['invalid', '9999-9999', '99999-9999']);
+
+it('validates the emergency_contact_phone (valid value)', function ($value) {
+    $response = $this->post('/register', [
+        'emergency_contact_phone' => $value
+    ]);
+
+    $response->assertValid(['emergency_contact_phone']);
+})->with(['(11) 1234-1234', '(11) 12345-1234', '(11)12345-1234']);

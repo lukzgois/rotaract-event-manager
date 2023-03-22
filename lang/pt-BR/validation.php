@@ -217,6 +217,7 @@ return [
 
         'agreed' => 'regulamento',
         'club_id' => 'clube',
+        'emergency_contact_phone' => 'telefone de emergência',
     ],
 
 ];

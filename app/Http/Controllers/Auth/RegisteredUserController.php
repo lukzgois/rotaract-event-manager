@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'birth_date' => ['required', 'date', 'after_or_equal:2005-06-17'],
-            'phone' => ['required'],
+            'phone' => ['required', 'celular_com_ddd'],
             'club_id' => ['required', 'integer', 'exists:clubs,id'],
             'address' => ['required'],
             'city' => ['required'],
@@ -47,11 +47,11 @@ class RegisteredUserController extends Controller
             'is_guest' => ['required', 'boolean'],
             'blood_type' => ['required', new Enum(BloodType::class)],
             'emergency_contact_name' => ['required'],
-            'emergency_contact_phone' => ['required'],
+            'emergency_contact_phone' => ['required', 'celular_com_ddd'],
             'allergies' => ['required'],
             'food_restrictions' => ['required'],
             'rg' => ['required'],
-            'cpf' => ['required'],
+            'cpf' => ['required', 'cpf'],
             'agreed' => ['required', 'accepted'],
         ]);
 
