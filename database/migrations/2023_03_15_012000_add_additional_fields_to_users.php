@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('zip_code');
             $table->boolean('is_guest');
             $table->enum('blood_type', [
-                'a+', 'b+', 'ab+', 'o+', 'a-', 'b-', 'ab-', 'o-'
+                'A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'
             ]);
             $table->string('emergency_contact_name');
             $table->string('emergency_contact_phone');

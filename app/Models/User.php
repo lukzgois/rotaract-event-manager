@@ -21,6 +21,22 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'birth_date',
+        'phone',
+        'club_id',
+        'address',
+        'city',
+        'state',
+        'zip_code',
+        'is_guest',
+        'blood_type',
+        'emergency_contact_name',
+        'emergency_contact_phone',
+        'allergies',
+        'food_restrictions',
+        'rg',
+        'cpf',
+        'agreed',
     ];
 
     /**

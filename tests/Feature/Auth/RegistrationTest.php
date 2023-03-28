@@ -9,17 +9,65 @@ test('registration screen can be rendered', function () {
     $response->assertStatus(200);
 });
 
-// test('new users can register', function () {
-//     $response = $this->post('/register', [
-//         'name' => 'Test User',
-//         'email' => 'test@example.com',
-//         'password' => 'password',
-//         'password_confirmation' => 'password',
-//     ]);
+test('new users can register (all fields)', function () {
+    $club_id = Club::factory()->create()->id;
 
-//     $this->assertAuthenticated();
-//     $response->assertRedirect(RouteServiceProvider::HOME);
-// });
+    $response = $this->post('/register', [
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+        'birth_date' => '1990-04-23',
+        'phone' => '(42)91234-5678',
+        'club_id' => (string)$club_id,
+        'address' => 'some address',
+        'city' => 'Guarapuava',
+        'state' => 'Paraná',
+        'zip_code' => '00000000',
+        'is_guest' => '1',
+        'blood_type' => 'A+',
+        'emergency_contact_name' => 'random name',
+        'emergency_contact_phone' => '(42)91234-5678',
+        'allergies' => 'some',
+        'food_restrictions' => 'some',
+        'rg' => '1234567',
+        'cpf' => '70748687017',
+        'agreed' => 'true',
+    ]);
+
+    $this->assertAuthenticated();
+    $response->assertRedirect(RouteServiceProvider::HOME);
+});
+
+test('new users can register (allow nullable fields)', function () {
+    $club_id = Club::factory()->create()->id;
+
+    $response = $this->post('/register', [
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+        'birth_date' => '1990-04-23',
+        'phone' => '(42)91234-5678',
+        'club_id' => (string)$club_id,
+        'address' => 'some address',
+        'city' => 'Guarapuava',
+        'state' => 'Paraná',
+        'zip_code' => '00000000',
+        'is_guest' => '1',
+        'blood_type' => 'A+',
+        'emergency_contact_name' => 'random name',
+        'emergency_contact_phone' => '(42)91234-5678',
+        'allergies' => '',
+        'food_restrictions' => '',
+        'rg' => '1234567',
+        'cpf' => '70748687017',
+        'agreed' => 'true',
+    ]);
+
+    $this->assertAuthenticated();
+    $response->assertRedirect(RouteServiceProvider::HOME);
+});
 
 it('validates the required fields', function () {
     $response = $this->post('/register', [
@@ -38,8 +86,6 @@ it('validates the required fields', function () {
         'blood_type' => '',
         'emergency_contact_name' => '',
         'emergency_contact_phone' => '',
-        'allergies' => '',
-        'food_restrictions' => '',
         'rg' => '',
         'cpf' => '',
         'agreed' => '',
@@ -60,8 +106,6 @@ it('validates the required fields', function () {
         'blood_type',
         'emergency_contact_name',
         'emergency_contact_phone',
-        'allergies',
-        'food_restrictions',
         'rg',
         'cpf',
         'agreed',
@@ -99,11 +143,11 @@ it('validates the birth_date (required)', function () {
 
 it('validates the birth_date (should be 18+)', function () {
     $response = $this->post('/register', [
-        'birth_date' => '2005-06-16'
+        'birth_date' => '2005-06-18'
     ]);
 
     $response->assertInvalid([
-        'birth_date' => 'O campo data de nascimento deve ser uma data posterior ou igual a 2005-06-17.'
+        'birth_date' => 'O campo data de nascimento deve ser uma data anterior ou igual a 2005-06-17.'
     ]);
 });
 
