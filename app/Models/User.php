@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Club;
 
 class User extends Authenticatable
 {
@@ -21,6 +23,22 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'birth_date',
+        'phone',
+        'club_id',
+        'address',
+        'city',
+        'state',
+        'zip_code',
+        'is_guest',
+        'blood_type',
+        'emergency_contact_name',
+        'emergency_contact_phone',
+        'allergies',
+        'food_restrictions',
+        'rg',
+        'cpf',
+        'agreed',
     ];
 
     /**
@@ -41,4 +59,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function club(): BelongsTo
+    {
+        return $this->belongsTo(Club::class);
+    }
 }
