@@ -14,6 +14,7 @@ test('new users can register (all fields)', function () {
 
     $response = $this->post('/register', [
         'name' => 'Test User',
+        'nickname' => 'Palmas',
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
@@ -44,6 +45,7 @@ test('new users can register (allow nullable fields)', function () {
 
     $response = $this->post('/register', [
         'name' => 'Test User',
+        'nickname' => 'Palmas',
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',

@@ -130,5 +130,18 @@
     "(and :count more error)": "(e mais :count erro)",
     "(and :count more errors)": "(e mais :count erros)",
     "Birth Date": "Data de nascimento",
-    "Nickname": "Apelido"
+    "Nickname": "Nome do crachá",
+    "Phone": "Telefone",
+    "Club": "Clube",
+    "Address": "Endereço",
+    "Blood type": "Tipo Sanguíneo",
+    "City": "Cidade",
+    "State": "Estado",
+    "Zip Code": "CEP",
+    "I am a guest": "Sou convidado",
+    "Emergency contact name": "Nome de contato para emergências",
+    "Emergency contact phone": "Telefone do contato para emergências",
+    "Agreed": "Li e concordo com o regulamento do evento",
+    "Have allergies?": "Tem alguma alergia?",
+    "Have some food restriction?": "Tem alguma restrição alimentar?"
 }

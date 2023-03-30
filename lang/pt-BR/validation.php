@@ -155,6 +155,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'agreed' => [
+            'required' => 'Você deve concordar com o regulamento do evento para poder participar!'
+        ]
     ],
 
     /*
@@ -215,9 +218,12 @@ return [
         'blood_type' => 'tipo sanguíneo',
         'birth_date' => 'data de nascimento',
 
+        'nickname' => 'nome do crachá',
         'agreed' => 'regulamento',
         'club_id' => 'clube',
         'emergency_contact_phone' => 'telefone de emergência',
+        'zip_code' => 'cep',
+        'emergency_contact_name' => 'nome do contato de emergência',
     ],
 
 ];
