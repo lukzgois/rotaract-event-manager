@@ -11,4 +11,12 @@ enum BloodType: string
     case ONegative = 'O-';
     case ABPositive = 'AB+';
     case ABNegative = 'AB-';
+
+    public static function toOptionsArray(): array
+    {
+        return array_combine(
+            array_column(BloodType::cases(), 'value'),
+            array_column(BloodType::cases(), 'value'),
+        );
+    }
 }

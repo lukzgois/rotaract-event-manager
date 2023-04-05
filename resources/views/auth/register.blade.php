@@ -79,9 +79,9 @@
         <div class="mt-4">
             <x-input-label for="club_id" :value="__('Club')" />
 
-            <x-text-input id="club_id" class="block mt-1 w-full"
-                            type="text"
-                            :value="old('club_id')"
+            <x-select-input id="club_id" class="block mt-1 w-full"
+                            :options="$clubs"
+                            :selected="old('club_id')"
                             name="club_id" required />
 
             <x-input-error :messages="$errors->get('club_id')" class="mt-2" />
@@ -115,9 +115,9 @@
         <div class="mt-4">
             <x-input-label for="state" :value="__('State')" />
 
-            <x-text-input id="state" class="block mt-1 w-full"
-                            type="text"
-                            :value="old('state')"
+            <x-select-input id="state" class="block mt-1 w-full"
+                            :options="$states"
+                            :selected="old('state')"
                             name="state" required />
 
             <x-input-error :messages="$errors->get('state')" class="mt-2" />
@@ -147,9 +147,9 @@
         <div class="mt-4">
             <x-input-label for="blood_type" :value="__('Blood type')" />
 
-            <x-text-input id="blood_type" class="block mt-1 w-full"
-                            type="text"
-                            :value="old('blood_type')"
+            <x-select-input id="blood_type" class="block mt-1 w-full"
+                            :options="$blood_types"
+                            :selected="old('blood_type')"
                             name="blood_type" required />
 
             <x-input-error :messages="$errors->get('blood_type')" class="mt-2" />
@@ -186,7 +186,7 @@
             <x-text-input id="allergies" class="block mt-1 w-full"
                             type="text"
                             :value="old('allergies')"
-                            name="allergies" required />
+                            name="allergies" />
 
             <x-input-error :messages="$errors->get('allergies')" class="mt-2" />
         </div>
@@ -198,7 +198,7 @@
             <x-text-input id="food_restrictions" class="block mt-1 w-full"
                             type="text"
                             :value="old('food_restrictions')"
-                            name="food_restrictions" required />
+                            name="food_restrictions" />
 
             <x-input-error :messages="$errors->get('food_restrictions')" class="mt-2" />
         </div>

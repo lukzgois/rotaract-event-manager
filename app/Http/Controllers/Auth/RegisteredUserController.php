@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Enums\BloodType;
 use App\Enums\BrazilianState;
+use App\Models\Club;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -23,7 +24,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $states = ["" => "Selecione um estado"] + BrazilianState::toOptionsArray();
+        $clubs = ["" => "Selecione um clube"] + Club::pluck('name', 'id')->toArray();
+        $blood_types = ["" => "Selecione um tipo sanguíneo"] + BloodType::toOptionsArray();
+
+        return view('auth.register', compact('states', 'clubs', 'blood_types'));
     }
 
     /**
