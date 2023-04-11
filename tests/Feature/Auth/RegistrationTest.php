@@ -2,6 +2,7 @@
 
 use App\Providers\RouteServiceProvider;
 use App\Models\Club;
+use App\Models\User;
 
 test('registration screen can be rendered', function () {
     $response = $this->get('/register');
@@ -114,6 +115,18 @@ it('validates the required fields', function () {
     ]);
     $response->assertRedirected('/register');
 })->throws(Exception::class);
+
+it('validates the email is unique', function() {
+    $email = User::factory()->forClub()->create()->email;
+
+    $response = $this->post('/register', [
+        'email' => $email,
+    ]);
+
+    $response->assertInvalid([
+        'email' => 'O campo email já está sendo utilizado.',
+    ]);
+});
 
 it('validates the state (invalid value)', function() {
     $response = $this->post('/register', [
