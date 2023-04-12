@@ -9,6 +9,18 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
+        <!-- Nickname -->
+        <div class="mt-4">
+            <x-input-label for="nickname" :value="__('Nickname')" />
+
+            <x-text-input id="nickname" class="block mt-1 w-full"
+                            type="text"
+                            :value="old('nickname')"
+                            name="nickname" required />
+
+            <x-input-error :messages="$errors->get('nickname')" class="mt-2" />
+        </div>
+
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
@@ -39,6 +51,30 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+        <!-- RG -->
+        <div class="mt-4">
+            <x-input-label for="rg" :value="__('RG')" />
+
+            <x-text-input id="rg" class="block mt-1 w-full"
+                            type="text"
+                            :value="old('rg')"
+                            name="rg" required />
+
+            <x-input-error :messages="$errors->get('rg')" class="mt-2" />
+        </div>
+
+        <!-- CPF -->
+        <div class="mt-4">
+            <x-input-label for="cpf" :value="__('CPF') . ' ' . __('(only numbers)')" />
+
+            <x-text-input id="cpf" class="block mt-1 w-full"
+                            type="text"
+                            :value="old('cpf')"
+                            name="cpf" required />
+
+            <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
+        </div>
+
         <!-- Birth Date -->
         <div class="mt-4">
             <x-input-label for="birth_date" :value="__('Birth Date')" />
@@ -49,18 +85,6 @@
                             name="birth_date" required />
 
             <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
-        </div>
-
-        <!-- Birth Date -->
-        <div class="mt-4">
-            <x-input-label for="nickname" :value="__('Nickname')" />
-
-            <x-text-input id="nickname" class="block mt-1 w-full"
-                            type="text"
-                            :value="old('nickname')"
-                            name="nickname" required />
-
-            <x-input-error :messages="$errors->get('nickname')" class="mt-2" />
         </div>
 
         <!-- Phone -->
@@ -85,6 +109,21 @@
                             name="club_id" required />
 
             <x-input-error :messages="$errors->get('club_id')" class="mt-2" />
+        </div>
+
+        <!-- Is Guest -->
+        <div class="block mt-4">
+            <label for="is_guest" class="inline-flex items-center">
+                <input type="hidden" name="is_guest" value="0" />
+                <input
+                    id="is_guest"
+                    type="checkbox"
+                    class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
+                    name="is_guest"
+                    value="1"
+                    @checked(old('is_guest') == '1') />
+                <span class="ml-2 text-gray-600 dark:text-gray-400">{{ __('I am a guest') }}</span>
+            </label>
         </div>
 
         <!-- Address -->
@@ -135,33 +174,6 @@
             <x-input-error :messages="$errors->get('zip_code')" class="mt-2" />
         </div>
 
-        <!-- Is Guest -->
-        <div class="block mt-4">
-            <label for="is_guest" class="inline-flex items-center">
-                <input type="hidden" name="is_guest" value="0" />
-                <input
-                    id="is_guest"
-                    type="checkbox"
-                    class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-                    name="is_guest"
-                    value="1"
-                    @checked(old('is_guest') == '1') />
-                <span class="ml-2 text-gray-600 dark:text-gray-400">{{ __('I am a guest') }}</span>
-            </label>
-        </div>
-
-        <!-- Blood Type -->
-        <div class="mt-4">
-            <x-input-label for="blood_type" :value="__('Blood type')" />
-
-            <x-select-input id="blood_type" class="block mt-1 w-full"
-                            :options="$blood_types"
-                            :selected="old('blood_type')"
-                            name="blood_type" required />
-
-            <x-input-error :messages="$errors->get('blood_type')" class="mt-2" />
-        </div>
-
         <!-- Emergency Contact Name -->
         <div class="mt-4">
             <x-input-label for="emergency_contact_name" :value="__('Emergency contact name')" />
@@ -186,6 +198,18 @@
             <x-input-error :messages="$errors->get('emergency_contact_phone')" class="mt-2" />
         </div>
 
+        <!-- Blood Type -->
+        <div class="mt-4">
+            <x-input-label for="blood_type" :value="__('Blood type')" />
+
+            <x-select-input id="blood_type" class="block mt-1 w-full"
+                            :options="$blood_types"
+                            :selected="old('blood_type')"
+                            name="blood_type" required />
+
+            <x-input-error :messages="$errors->get('blood_type')" class="mt-2" />
+        </div>
+
         <!-- Allergies -->
         <div class="mt-4">
             <x-input-label for="allergies" :value="__('Have allergies?')" />
@@ -208,30 +232,6 @@
                             name="food_restrictions" />
 
             <x-input-error :messages="$errors->get('food_restrictions')" class="mt-2" />
-        </div>
-
-        <!-- RG -->
-        <div class="mt-4">
-            <x-input-label for="rg" :value="__('RG')" />
-
-            <x-text-input id="rg" class="block mt-1 w-full"
-                            type="text"
-                            :value="old('rg')"
-                            name="rg" required />
-
-            <x-input-error :messages="$errors->get('rg')" class="mt-2" />
-        </div>
-
-        <!-- CPF -->
-        <div class="mt-4">
-            <x-input-label for="cpf" :value="__('CPF') . ' ' . __('(only numbers)')" />
-
-            <x-text-input id="cpf" class="block mt-1 w-full"
-                            type="text"
-                            :value="old('cpf')"
-                            name="cpf" required />
-
-            <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
         </div>
 
         <!-- Agreed -->
