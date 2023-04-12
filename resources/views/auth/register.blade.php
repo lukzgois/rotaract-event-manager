@@ -65,7 +65,7 @@
 
         <!-- Phone -->
         <div class="mt-4">
-            <x-input-label for="phone" :value="__('Phone')" />
+            <x-input-label for="phone" :value="__('Phone') . ' ' . __('(only numbers)')" />
 
             <x-text-input id="phone" class="block mt-1 w-full"
                             type="text"
@@ -125,7 +125,7 @@
 
         <!-- Zip Code -->
         <div class="mt-4">
-            <x-input-label for="zip_code" :value="__('Zip Code')" />
+            <x-input-label for="zip_code" :value="__('Zip Code') . ' ' . __('(only numbers)')" />
 
             <x-text-input id="zip_code" class="block mt-1 w-full"
                             type="text"
@@ -169,7 +169,7 @@
 
         <!-- Emergency Contact Phone -->
         <div class="mt-4">
-            <x-input-label for="emergency_contact_phone" :value="__('Emergency contact phone')" />
+            <x-input-label for="emergency_contact_phone" :value="__('Emergency contact phone') . ' ' . __('(only numbers)')" />
 
             <x-text-input id="emergency_contact_phone" class="block mt-1 w-full"
                             type="text"
@@ -217,7 +217,7 @@
 
         <!-- CPF -->
         <div class="mt-4">
-            <x-input-label for="cpf" :value="__('CPF')" />
+            <x-input-label for="cpf" :value="__('CPF') . ' ' . __('(only numbers)')" />
 
             <x-text-input id="cpf" class="block mt-1 w-full"
                             type="text"

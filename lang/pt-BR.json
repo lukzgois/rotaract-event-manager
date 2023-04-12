@@ -143,5 +143,6 @@
     "Emergency contact phone": "Telefone do contato para emergências",
     "Agreed": "Li e concordo com o regulamento do evento",
     "Have allergies?": "Tem alguma alergia?",
-    "Have some food restriction?": "Tem alguma restrição alimentar?"
+    "Have some food restriction?": "Tem alguma restrição alimentar?",
+    "(only numbers)": "(somente números)"
 }
