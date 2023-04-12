@@ -20,6 +20,17 @@ class RegisterUserRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'phone' => preg_replace('/\D/', '', $this->phone), // removing any non digits chars
+            'emergency_contact_phone' => preg_replace('/\D/', '', $this->emergency_contact_phone), // removing any non digits chars
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
@@ -32,7 +43,7 @@ class RegisterUserRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'birth_date' => ['required', 'date', 'before_or_equal:2005-06-17'],
-            'phone' => ['required', 'celular_com_ddd'],
+            'phone' => ['required', 'min:10', 'max:11'],
             'club_id' => ['required', 'integer', 'exists:clubs,id'],
             'address' => ['required'],
             'city' => ['required'],
@@ -41,7 +52,7 @@ class RegisterUserRequest extends FormRequest
             'is_guest' => ['required', 'boolean'],
             'blood_type' => ['required', new Enum(BloodType::class)],
             'emergency_contact_name' => ['required'],
-            'emergency_contact_phone' => ['required', 'celular_com_ddd'],
+            'emergency_contact_phone' => ['required', 'min:10', 'max:11'],
             'rg' => ['required'],
             'cpf' => ['required', 'cpf'],
             'agreed' => ['required', 'accepted'],

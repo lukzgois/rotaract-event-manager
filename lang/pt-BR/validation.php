@@ -157,6 +157,14 @@ return [
         ],
         'agreed' => [
             'required' => 'Você deve concordar com o regulamento do evento para poder participar!'
+        ],
+        'phone' => [
+            'min' => 'O campo telefone não é um celular com DDD válido.',
+            'max' => 'O campo telefone não é um celular com DDD válido.',
+        ],
+        'emergency_contact_phone' => [
+            'min' => 'O campo telefone de emergência não é um celular com DDD válido.',
+            'max' => 'O campo telefone de emergência não é um celular com DDD válido.',
         ]
     ],
 
