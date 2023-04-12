@@ -206,6 +206,24 @@ it('validates the is_guest (wrong value)', function () {
     ]);
 });
 
+it('validates the zip_code (invalid values)', function ($value) {
+    $response = $this->post('/register', [
+        'zip_code' => $value
+    ]);
+
+    $response->assertInvalid([
+        'zip_code' => 'O cep informado não é válido.',
+    ]);
+})->with(['12345', '123456789', '123as4567']);
+
+it('validates the zip_code (valid values)', function ($value) {
+    $response = $this->post('/register', [
+        'zip_code' => $value
+    ]);
+
+    $response->assertValid(['zip_code']);
+})->with(['12345678', '12345-678', 'a123a45bob67a8']);
+
 it('validates the is_guest (correct value)', function ($value) {
     $response = $this->post('/register', [
         'is_guest' => $value

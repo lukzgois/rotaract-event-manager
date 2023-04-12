@@ -27,6 +27,7 @@ class RegisterUserRequest extends FormRequest
         $this->merge([
             'phone' => preg_replace('/\D/', '', $this->phone), // removing any non digits chars
             'emergency_contact_phone' => preg_replace('/\D/', '', $this->emergency_contact_phone), // removing any non digits chars
+            'zip_code' => preg_replace('/\D/', '', $this->zip_code), // removing any non digits chars
         ]);
     }
 
@@ -48,7 +49,7 @@ class RegisterUserRequest extends FormRequest
             'address' => ['required'],
             'city' => ['required'],
             'state' => ['required', new Enum(BrazilianState::class)],
-            'zip_code' => ['required'],
+            'zip_code' => ['required', 'size:8'],
             'is_guest' => ['required', 'boolean'],
             'blood_type' => ['required', new Enum(BloodType::class)],
             'emergency_contact_name' => ['required'],

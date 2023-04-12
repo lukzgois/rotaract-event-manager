@@ -165,7 +165,10 @@ return [
         'emergency_contact_phone' => [
             'min' => 'O campo telefone de emergência não é um celular com DDD válido.',
             'max' => 'O campo telefone de emergência não é um celular com DDD válido.',
-        ]
+        ],
+        'zip_code' => [
+            'size' => 'O cep informado não é válido.',
+        ],
     ],
 
     /*
