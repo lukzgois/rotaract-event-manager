@@ -36,4 +36,12 @@ enum BrazilianState: string
     {
         return array_column(BrazilianState::cases(), 'value');
     }
+
+    public static function toOptionsArray(): array
+    {
+        return array_combine(
+            array_column(BrazilianState::cases(), 'value'),
+            array_column(BrazilianState::cases(), 'value'),
+        );
+    }
 }

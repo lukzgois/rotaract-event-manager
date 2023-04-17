@@ -155,6 +155,20 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'agreed' => [
+            'required' => 'Você deve concordar com o regulamento do evento para poder participar!'
+        ],
+        'phone' => [
+            'min' => 'O campo telefone não é um celular com DDD válido.',
+            'max' => 'O campo telefone não é um celular com DDD válido.',
+        ],
+        'emergency_contact_phone' => [
+            'min' => 'O campo telefone de emergência não é um celular com DDD válido.',
+            'max' => 'O campo telefone de emergência não é um celular com DDD válido.',
+        ],
+        'zip_code' => [
+            'size' => 'O cep informado não é válido.',
+        ],
     ],
 
     /*
@@ -215,9 +229,12 @@ return [
         'blood_type' => 'tipo sanguíneo',
         'birth_date' => 'data de nascimento',
 
+        'nickname' => 'nome do crachá',
         'agreed' => 'regulamento',
         'club_id' => 'clube',
         'emergency_contact_phone' => 'telefone de emergência',
+        'zip_code' => 'cep',
+        'emergency_contact_name' => 'nome do contato de emergência',
     ],
 
 ];

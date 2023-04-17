@@ -2,6 +2,7 @@
 
 use App\Providers\RouteServiceProvider;
 use App\Models\Club;
+use App\Models\User;
 
 test('registration screen can be rendered', function () {
     $response = $this->get('/register');
@@ -14,6 +15,7 @@ test('new users can register (all fields)', function () {
 
     $response = $this->post('/register', [
         'name' => 'Test User',
+        'nickname' => 'Palmas',
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
@@ -44,6 +46,7 @@ test('new users can register (allow nullable fields)', function () {
 
     $response = $this->post('/register', [
         'name' => 'Test User',
+        'nickname' => 'Palmas',
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
@@ -112,6 +115,18 @@ it('validates the required fields', function () {
     ]);
     $response->assertRedirected('/register');
 })->throws(Exception::class);
+
+it('validates the email is unique', function() {
+    $email = User::factory()->forClub()->create()->email;
+
+    $response = $this->post('/register', [
+        'email' => $email,
+    ]);
+
+    $response->assertInvalid([
+        'email' => 'O campo email já está sendo utilizado.',
+    ]);
+});
 
 it('validates the state (invalid value)', function() {
     $response = $this->post('/register', [
@@ -191,6 +206,24 @@ it('validates the is_guest (wrong value)', function () {
     ]);
 });
 
+it('validates the zip_code (invalid values)', function ($value) {
+    $response = $this->post('/register', [
+        'zip_code' => $value
+    ]);
+
+    $response->assertInvalid([
+        'zip_code' => 'O cep informado não é válido.',
+    ]);
+})->with(['12345', '123456789', '123as4567']);
+
+it('validates the zip_code (valid values)', function ($value) {
+    $response = $this->post('/register', [
+        'zip_code' => $value
+    ]);
+
+    $response->assertValid(['zip_code']);
+})->with(['12345678', '12345-678', 'a123a45bob67a8']);
+
 it('validates the is_guest (correct value)', function ($value) {
     $response = $this->post('/register', [
         'is_guest' => $value
@@ -261,7 +294,7 @@ it('validates the phone (invalid value)', function ($value) {
     $response->assertInvalid([
         'phone' => 'O campo telefone não é um celular com DDD válido.'
     ]);
-})->with(['invalid', '9999-9999', '99999-9999']);
+})->with(['123456789', '123456789012', '12345678', '1234567']);
 
 it('validates the phone (valid value)', function ($value) {
     $response = $this->post('/register', [
@@ -269,7 +302,7 @@ it('validates the phone (valid value)', function ($value) {
     ]);
 
     $response->assertValid(['phone']);
-})->with(['(11) 1234-1234', '(11) 12345-1234', '(11)12345-1234']);
+})->with(['(11) 1234-1234', '(11) 12345-1234', '(11)12345-1234', '(11)12345a1234aaa']);
 
 it('validates the emergency_contact_phone (invalid value)', function ($value) {
     $response = $this->post('/register', [
@@ -279,7 +312,7 @@ it('validates the emergency_contact_phone (invalid value)', function ($value) {
     $response->assertInvalid([
         'emergency_contact_phone' => 'O campo telefone de emergência não é um celular com DDD válido.'
     ]);
-})->with(['invalid', '9999-9999', '99999-9999']);
+})->with(['123456789', '123456789012', '12345678', '1234567']);
 
 it('validates the emergency_contact_phone (valid value)', function ($value) {
     $response = $this->post('/register', [
@@ -287,4 +320,4 @@ it('validates the emergency_contact_phone (valid value)', function ($value) {
     ]);
 
     $response->assertValid(['emergency_contact_phone']);
-})->with(['(11) 1234-1234', '(11) 12345-1234', '(11)12345-1234']);
+})->with(['(11) 1234-1234', '(11) 12345-1234', '(11)12345-1234', '(11)12345a1234aaa']);
