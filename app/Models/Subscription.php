@@ -18,4 +18,14 @@ class Subscription extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function isPending()
+    {
+        return (bool)!$this->paid_at;
+    }
+
+    public function isPaid()
+    {
+        return (bool)$this->paid_at;
+    }
 }

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->enum('status', ['pending', 'paid'])->default('pending');
             $table->enum('payment_type', ['pix', 'credit_card'])->nullable();
             $table->decimal('value')->nullable();
-            $table->integer('ticket_batch')->unsigned()->nullable();
+            $table->string('ticket_batch')->nullable();
+            $table->dateTime('paid_at')->nullable();
             $table->timestamps();
         });
     }
