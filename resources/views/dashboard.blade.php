@@ -37,8 +37,8 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 class="text-xl font-bold mb-4">Pagamento via PIX</h2>
 
-                    <div class="flex items-center">
-                        <div class="mr-4 basis-1/2">
+                    <div class="flex flex-wrap md:flex-nowrap items-center">
+                        <div class="md:mr-4 md:basis-1/2">
                             <img src="{{ Vite::asset('resources/images/qrcode-1-lote.jpeg') }}" />
                         </div>
 
@@ -46,7 +46,7 @@
                             <p class="my-2">Chave PIX: <strong>fematakas@gmail.com</strong></p>
                             <p class="my-2">Valor: <strong>R$ {{ ENV('TICKET_BATCH_PRICE')}}</strong></p>
                             <p class="my-2">Nome: <strong>Fernanda Gurgel Matakas</strong><p>
-                            <p class="my-2">
+                            <p class="my-2 break-all">
                                 Pix copia e cola: <br>
                                 <strong>
                                     00020126700014br.gov.bcb.pix0114+55429997980020230Inscricao CODIRC primeiro lote5204000053039865406180.005802BR5923FERNANDA GURGEL MATAKAS6010GUARAPUAVA62290525Pe0WEiNx4AqMBQWqqeiNTD1Sk63040761
