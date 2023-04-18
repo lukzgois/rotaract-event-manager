@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Club;
+use App\Models\Subscription;
 
 class User extends Authenticatable
 {
@@ -64,5 +66,13 @@ class User extends Authenticatable
     public function club(): BelongsTo
     {
         return $this->belongsTo(Club::class);
+    }
+
+    /**
+     * Get the subscription associated with the user.
+     */
+    public function subscription(): HasOne
+    {
+        return $this->hasOne(Subscription::class);
     }
 }
