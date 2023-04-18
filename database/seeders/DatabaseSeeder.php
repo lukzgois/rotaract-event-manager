@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $clubs = \App\Models\Club::factory(3)->create();
 
         \App\Models\User::factory(15)
+            ->hasSubscription()
             ->sequence(
                 ['club_id' => $clubs[0]->id],
                 ['club_id' => $clubs[1]->id],
@@ -25,9 +27,24 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory([
             'club_id' => $clubs[0]->id,
+            'email' => 'pending@test.com',
+        ])
+        ->hasSubscription()
+        ->create();
+
+        \App\Models\User::factory([
+            'club_id' => $clubs[0]->id,
+            'email' => 'paid@test.com',
+        ])
+        ->hasSubscription(['paid_at' => Carbon::now()])
+        ->create();
+
+        \App\Models\User::factory([
+            'club_id' => $clubs[0]->id,
             'email' => 'admin@test.com',
             'user_type' => 'admin'
         ])
+        ->hasSubscription()
         ->create();
     }
 }
