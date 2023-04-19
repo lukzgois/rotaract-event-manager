@@ -12,7 +12,7 @@ class PagesController extends Controller
         $participants = Club::join('users', 'clubs.id', '=', 'users.club_id')
             ->orderBy('clubs.name')
             ->orderBy('users.name')
-            ->select('users.name', 'clubs.name as club_name')
+            ->select('users.name', 'users.nickname', 'clubs.name as club_name')
             ->where('users.user_type', "=", "participant")
             ->get();
 

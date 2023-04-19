@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Club;
 use App\Models\User;
 
 it('responds to the url', function () {
@@ -13,6 +14,21 @@ it('renders a list of users', function () {
     $response = $this->get('/inscritos');
 
     $response->assertSee($users->pluck('name')->all());
+});
+
+it('renders the clubs', function () {
+    User::factory()->forClub()->count(10)->create();
+    $clubs = Club::all()->pluck('name');
+    $response = $this->get('/inscritos');
+
+    $response->assertSee($clubs->all());
+});
+
+it('renders the nicknames', function () {
+    $users = User::factory()->forClub()->count(10)->create();
+    $response = $this->get('/inscritos');
+
+    $response->assertSee($users->pluck('nickname')->all());
 });
 
 it('does not render the admin users', function () {
