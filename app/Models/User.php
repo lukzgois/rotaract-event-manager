@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Club;
 use App\Models\Subscription;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
@@ -62,6 +63,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Scope a query to only include popular users.
+     */
+    public function scopeParticipants(Builder $query): void
+    {
+        $query->where('user_type', 'participant');
+    }
 
     public function club(): BelongsTo
     {
