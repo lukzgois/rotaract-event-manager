@@ -2,41 +2,45 @@
 
 <?php
 $repo = 'git@github.com:lukzgois/rotaract-event-manager.git';
-$release_dir = '/var/www/staging/releases';
-$app_dir = '/var/www/staging/app';
 $release = 'release_' . date('Y_m_d_H_i_s');
+
+$release_dir_staging = '/var/www/staging/releases';
+$app_dir_staging = '/var/www/staging/app';
+
+$release_dir_production = '/var/www/production/releases';
+$app_dir_production = '/var/www/production/app';
 ?>
 
 @macro('deploy-staging', ['on' => 'web'])
-    fetch_repo
-    run_composer
-    update_permissions
-    update_symlinks
-    compile_frontend
-    reset_migrations
-    optimize_laravel
+    fetch_repo_staging
+    run_composer_staging
+    update_permissions_staging
+    update_symlinks_staging
+    compile_frontend_staging
+    reset_migrations_staging
+    optimize_laravel_staging
     reload_php
 @endmacro
 
-@task('fetch_repo')
-    [ -d {{ $release_dir }} ] || mkdir {{ $release_dir }};
-    cd {{ $release_dir }};
+@task('fetch_repo_staging')
+    [ -d {{ $release_dir_staging }} ] || mkdir {{ $release_dir_staging }};
+    cd {{ $release_dir_staging }};
     git clone -b main {{ $repo }} {{ $release }};
 @endtask
 
-@task('run_composer')
-    cd {{ $release_dir }}/{{ $release }};
+@task('run_composer_staging')
+    cd {{ $release_dir_staging }}/{{ $release }};
     composer install --optimize-autoloader
 @endtask
 
-@task('update_permissions')
-    cd {{ $release_dir }};
+@task('update_permissions_staging')
+    cd {{ $release_dir_staging }};
     chgrp -R www-data {{ $release }};
     chmod -R ug+rwx {{ $release }};
 @endtask
 
-@task('optimize_laravel')
-    cd {{ $release_dir }}/{{ $release }};
+@task('optimize_laravel_staging')
+    cd {{ $release_dir_staging }}/{{ $release }};
     php artisan clear-compiled --env=production;
     php artisan optimize --env=production;
     php artisan config:cache
@@ -45,27 +49,27 @@ $release = 'release_' . date('Y_m_d_H_i_s');
     php artisan view:cache
 @endtask
 
-@task('reset_migrations')
-    cd {{ $release_dir }}/{{ $release }};
+@task('reset_migrations_staging')
+    cd {{ $release_dir_staging }}/{{ $release }};
     php artisan migrate:refresh --seed --force
 @endtask
 
-@task('update_symlinks')
-    ln -nfs {{ $release_dir }}/{{ $release }} {{ $app_dir }};
-    chgrp -h www-data {{ $app_dir }};
+@task('update_symlinks_staging')
+    ln -nfs {{ $release_dir_staging }}/{{ $release }} {{ $app_dir_staging }};
+    chgrp -h www-data {{ $app_dir_staging }};
 
-    cd {{ $release_dir }}/{{ $release }};
+    cd {{ $release_dir_staging }}/{{ $release }};
     ln -nfs ../../.env .env;
     chgrp -h www-data .env;
 
-    rm -r {{ $release_dir }}/{{ $release }}/storage/logs;
-    cd {{ $release_dir }}/{{ $release }}/storage;
+    rm -r {{ $release_dir_staging }}/{{ $release }}/storage/logs;
+    cd {{ $release_dir_staging }}/{{ $release }}/storage;
     ln -nfs ../../../logs logs;
     chgrp -h www-data logs;
 @endtask
 
-@task('compile_frontend')
-    cd {{ $release_dir }}/{{ $release }};
+@task('compile_frontend_staging')
+    cd {{ $release_dir_staging }}/{{ $release }};
     npm install
     npm run build
 @endtask
