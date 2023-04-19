@@ -9,6 +9,7 @@
                 <thead>
                     <tr class="h-12 text-xl font-bold border-b">
                         <th class="text-left">Nome</th>
+                        <th class="text-left">Apelido</th>
                         <th class="text-left">Clube</th>
                     </tr>
                 </thead>
@@ -16,6 +17,7 @@
                     @foreach($participants as $participant)
                         <tr>
                             <td class="pr-16">{{ $participant->name }}</td>
+                            <td class="pr-16">{{ $participant->nickname }}</td>
                             <td class="pr-4">{{ $participant->club_name }}</td>
                         </tr>
                     @endforeach
