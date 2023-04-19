@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('rg');
             $table->string('cpf');
             $table->boolean('agreed');
-            $table->enum('user_type', ['user', 'admin'])->default('user');
+            $table->enum('user_type', ['participant', 'admin'])->default('participant');
         });
     }
 
