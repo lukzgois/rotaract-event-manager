@@ -24,13 +24,6 @@ it('renders the clubs', function () {
     $response->assertSee($clubs->all());
 });
 
-it('renders the nicknames', function () {
-    $users = User::factory()->forClub()->count(10)->create();
-    $response = $this->get('/inscritos');
-
-    $response->assertSee($users->pluck('nickname')->all());
-});
-
 it('does not render the admin users', function () {
     $admin = User::factory(['user_type' => 'admin'])->forClub()->create();
     $response = $this->get('/inscritos');

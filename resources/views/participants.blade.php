@@ -9,7 +9,6 @@
                 <thead>
                     <tr class="h-12 text-xl font-bold border-b">
                         <th class="text-left">Nome</th>
-                        <th class="text-left">Apelido</th>
                         <th class="text-left">Clube</th>
                     </tr>
                 </thead>
@@ -17,7 +16,6 @@
                     @foreach($participants as $participant)
                         <tr class="border-b border-dashed border-white/50">
                             <td class="py-8 pr-16">{{ $participant->name }}</td>
-                            <td class="pr-16">{{ $participant->nickname }}</td>
                             <td class="">{{ $participant->club_name }}</td>
                         </tr>
                     @endforeach

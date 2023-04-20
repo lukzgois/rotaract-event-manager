@@ -4,7 +4,7 @@
             <img src="{{ Vite::asset('resources/images/logo-120x175.png') }}" />
         </div>
 
-        <h1 class="text-4xl text-center mt-4">Sejam bem vindos aos Sete Mares, Marujos!</h1>
+        <h1 class="text-4xl text-center mt-4">Sejam bem-vindos aos Sete Mares, Marujos!</h1>
 
         <p class="text-center mt-4 mb-6 md:max-w-lg">
             A tripulação de Guarapuava orgulhosamente convida vocês a embarcarem nessa aventura pelos mistérios dos mares. Icem as velas e subam a âncora, pois está na hora de partir!
