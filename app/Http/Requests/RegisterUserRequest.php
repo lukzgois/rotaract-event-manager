@@ -8,6 +8,7 @@ use Illuminate\Validation\Rules;
 use App\Enums\BloodType;
 use App\Enums\BrazilianState;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterUserRequest extends FormRequest
 {
@@ -58,5 +59,13 @@ class RegisterUserRequest extends FormRequest
             'cpf' => ['required', 'cpf'],
             'agreed' => ['required', 'accepted'],
         ];
+    }
+
+    /**
+     * Handle a passed validation attempt.
+     */
+    protected function passedValidation(): void
+    {
+        $this->merge(['password' => Hash::make($this->password)]);
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Enums\BloodType;
 use App\Enums\BrazilianState;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -36,11 +36,13 @@ class RegisteredUserController extends Controller
      */
     public function store(RegisterUserRequest $request): RedirectResponse
     {
-        $user = User::create($request->validated());
+        DB::transaction(function() use ($request) {
+            $user = User::create($request->all());
+            $user->subscription()->create();
+            event(new Registered($user));
 
-        event(new Registered($user));
-
-        Auth::login($user);
+            Auth::login($user);
+        });
 
         return redirect(RouteServiceProvider::HOME);
     }

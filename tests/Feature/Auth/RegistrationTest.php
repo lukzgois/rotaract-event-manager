@@ -72,6 +72,79 @@ test('new users can register (allow nullable fields)', function () {
     $response->assertRedirect(RouteServiceProvider::HOME);
 });
 
+
+test('new users can register, logout and login again', function () {
+    $club_id = Club::factory()->create()->id;
+
+    $response = $this->post('/register', [
+        'name' => 'Test User',
+        'nickname' => 'Palmas',
+        'email' => 'test@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+        'birth_date' => '1990-04-23',
+        'phone' => '(42)91234-5678',
+        'club_id' => (string)$club_id,
+        'address' => 'some address',
+        'city' => 'Guarapuava',
+        'state' => 'Paraná',
+        'zip_code' => '00000000',
+        'is_guest' => '1',
+        'blood_type' => 'A+',
+        'emergency_contact_name' => 'random name',
+        'emergency_contact_phone' => '(42)91234-5678',
+        'allergies' => '',
+        'food_restrictions' => '',
+        'rg' => '1234567',
+        'cpf' => '70748687017',
+        'agreed' => 'true',
+    ]);
+
+    $this->assertAuthenticated();
+    $this->post('logout');
+    $this->assertGuest();
+
+    $this->post('/login', [
+        'email' => 'test@example.com',
+        'password' => 'password'
+    ]);
+    $this->assertAuthenticated();
+});
+
+test('it creates a subscription for the registered user', function () {
+    $club_id = Club::factory()->create()->id;
+
+    $response = $this->post('/register', [
+        'name' => 'Test User',
+        'nickname' => 'Palmas',
+        'email' => 'test@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+        'birth_date' => '1990-04-23',
+        'phone' => '(42)91234-5678',
+        'club_id' => (string)$club_id,
+        'address' => 'some address',
+        'city' => 'Guarapuava',
+        'state' => 'Paraná',
+        'zip_code' => '00000000',
+        'is_guest' => '1',
+        'blood_type' => 'A+',
+        'emergency_contact_name' => 'random name',
+        'emergency_contact_phone' => '(42)91234-5678',
+        'allergies' => '',
+        'food_restrictions' => '',
+        'rg' => '1234567',
+        'cpf' => '70748687017',
+        'agreed' => 'true',
+    ]);
+
+    $this->assertAuthenticated();
+    $response->assertRedirect(RouteServiceProvider::HOME);
+    $this->assertDatabaseHas('users', ['email' => 'test@example.com']);
+    $user = User::firstWhere(['email' => 'test@example.com']);
+    $this->assertDatabaseHas('subscriptions', ['user_id' => $user->id]);
+});
+
 it('validates the required fields', function () {
     $response = $this->post('/register', [
         'name' => '',

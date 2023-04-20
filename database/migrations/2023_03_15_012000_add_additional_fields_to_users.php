@@ -31,7 +31,8 @@ return new class extends Migration
             $table->string('rg');
             $table->string('cpf');
             $table->boolean('agreed');
-            $table->enum('user_type', ['user', 'admin'])->default('user');
+            $table->enum('user_type', ['participant', 'admin'])->default('participant');
+            $table->softDeletes();
         });
     }
 
@@ -59,6 +60,7 @@ return new class extends Migration
             $table->dropColumn('cpf');
             $table->dropColumn('agreed');
             $table->dropColumn('user_type');
+            $table->dropSoftDeletes();
         });
     }
 };
