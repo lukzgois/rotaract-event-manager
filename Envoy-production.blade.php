@@ -20,7 +20,7 @@ $app_dir_production = '/var/www/production/app';
 @task('fetch_repo_production')
     [ -d {{ $release_dir_production }} ] || mkdir {{ $release_dir_production }};
     cd {{ $release_dir_production }};
-    git clone -b main {{ $repo }} {{ $release }};
+    git clone -b production {{ $repo }} {{ $release }};
 @endtask
 
 @task('run_composer_production')
@@ -61,6 +61,10 @@ $app_dir_production = '/var/www/production/app';
     cd {{ $release_dir_production }}/{{ $release }}/storage;
     ln -nfs ../../../logs logs;
     chgrp -h www-data logs;
+
+    cd {{ $release_dir_staging }}/{{ $release }}/storage/app;
+    ln -nfs ../../../../backups backups;
+    chgrp -h www-data backups;
 @endtask
 
 @task('compile_frontend_production')
