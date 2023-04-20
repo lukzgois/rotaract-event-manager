@@ -12,10 +12,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Club;
 use App\Models\Subscription;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
