@@ -238,7 +238,12 @@
         <div class="block mt-4">
             <label for="agreed" class="inline-flex items-center">
                 <input id="agreed" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="agreed" />
-                <span class="ml-2 text-gray-600 dark:text-gray-400">{{ __('Agreed') }}</span>
+                <span class="ml-2 text-gray-600 dark:text-gray-400">
+                    {{ __('Agreed') }}
+                    <a href="/downloads/REGULAMENTO_XXXIII_CODIRC_DOS_SETE_MARES.pdf" target="_blank" download class="text-blue-500 underline">
+                        Regulamento do Evento
+                    </a>
+                </span>
             </label>
 
             <x-input-error :messages="$errors->get('agreed')" class="mt-2" />
