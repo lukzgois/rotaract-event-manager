@@ -46,7 +46,7 @@ $app_dir_staging = '/var/www/staging/app';
 
 @task('reset_migrations_staging')
     cd {{ $release_dir_staging }}/{{ $release }};
-    php artisan migrate:refresh --seed --force
+    php artisan migrate:fresh --seed --force
 @endtask
 
 @task('update_symlinks_staging')
@@ -61,6 +61,10 @@ $app_dir_staging = '/var/www/staging/app';
     cd {{ $release_dir_staging }}/{{ $release }}/storage;
     ln -nfs ../../../logs logs;
     chgrp -h www-data logs;
+
+    cd {{ $release_dir_staging }}/{{ $release }}/storage/app;
+    ln -nfs ../../../../backups backups;
+    chgrp -h www-data backups;
 @endtask
 
 @task('compile_frontend_staging')
