@@ -30,4 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [DashboardController::class, 'admin'])->name('admin.dashboard');
+    Route::get('/participants', [DashboardController::class, 'admin'])->name('participants.index');
+
+});
+
 require __DIR__.'/auth.php';
