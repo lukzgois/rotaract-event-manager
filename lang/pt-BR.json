@@ -145,6 +145,13 @@
     "Have allergies?": "Tem alguma alergia? Qual?",
     "Have some food restriction?": "Tem alguma restrição alimentar? Qual?",
     "(only numbers)": "(somente números)",
-    "Welcome user!": "Bem vindo"
-
+    "Welcome user!": "Bem vindo",
+    "Participants": "Inscritos",
+    "Confirmed": "Confirmada",
+    "Pending": "Pendente",
+    "Subscription": "Inscrição",
+    "View": "Visualizar",
+    "Edit": "Editar",
+    "Confirm subscription": "Confirmar inscrição",
+    "View all": "Ver todas"
 }
