@@ -15,4 +15,9 @@ class DashboardController extends Controller
 
         return view('dashboard', compact('remaining_days', 'subscription', 'qrcode'));
     }
+
+    public function admin()
+    {
+        return view('admin.dashboard');
+    }
 }

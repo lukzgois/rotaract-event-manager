@@ -62,7 +62,7 @@ $app_dir_production = '/var/www/production/app';
     ln -nfs ../../../logs logs;
     chgrp -h www-data logs;
 
-    cd {{ $release_dir_staging }}/{{ $release }}/storage/app;
+    cd {{ $release_dir_production }}/{{ $release }}/storage/app;
     ln -nfs ../../../../backups backups;
     chgrp -h www-data backups;
 @endtask

@@ -56,8 +56,17 @@
                         </div>
 
                         <div>
-                            <p class="my-2">Chave PIX: <strong>fematakas@gmail.com</strong></p>
-                            <p class="my-2">Valor: <strong>R$ {{ config('payment.ticket_price')}}</strong></p>
+                            <p class="my-2">
+                                Chave PIX:
+                                <strong>42999798002</strong>
+                                <a href="#" class="text-blue-500 text-sm underline" onclick="copyPixKey(); return false">Copiar</a>
+                            </p>
+
+                            <p class="my-2">
+                                Valor:
+                                <strong>R$ {{ config('payment.ticket_price')}}</strong>
+                                <a href="#" class="text-blue-500 text-sm underline" onclick="copyPixValue(); return false">Copiar</a>
+                            </p>
                             <p class="my-2">Nome: <strong>Fernanda Gurgel Matakas</strong><p>
                             <p class="my-2 break-all">
                                 Pix copia e cola: <br>
@@ -81,7 +90,7 @@
                     <h2 class="text-xl text-center sm:text-left font-bold mb-4">Pagamento via Depósito Bancário (igual aos antigos astecas)</h2>
 
                     <p class="my-2">Nome: <strong>Fernanda Gurgel Matakas</strong><p>
-                    <p class="my-2">Valor: <strong>R$ {{ config('payment.ticket_price')}}</strong></p>
+                    <p class="my-2">Valor: <strong>R$ {{ config('payment.ticket_price') }}</strong></p>
                     <p class="my-2">Agência: <strong>0645-9</strong></p>
                     <p class="my-2">Conta: <strong>51.227-3</strong></p>
                     <p class="my-2"><strong>Banco do Brasil</strong></p>
@@ -123,5 +132,13 @@ data-preference-id="168858925-a33f91ac-3a1b-4a1c-b37a-4ff81e543c69" data-source=
 <script>
 function copyPixCode() {
     navigator.clipboard.writeText('{{ config("payment.pix_code") }}')
+}
+
+function copyPixKey() {
+    navigator.clipboard.writeText('42999798002')
+}
+
+function copyPixValue() {
+    navigator.clipboard.writeText('{{ config("payment.ticket_price") }}')
 }
 </script>
