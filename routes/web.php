@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\ParticipantsController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +33,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'admin'])->name('admin.dashboard');
-    Route::get('/participants', [DashboardController::class, 'admin'])->name('participants.index');
+    Route::prefix('admin')->group(function() {
+        Route::get('/participants', [ParticipantsController::class, 'index'])->name('participants.index');
+    });
 
 });
 
