@@ -7,7 +7,7 @@
             </div>
 
             <div class="bg-white p-6 rounded-lg shadow-md">
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('subscription.confirm', ['subscription' => $subscription->id]) }}">
                     @csrf
 
                     <div>

@@ -37,6 +37,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->group(function() {
         Route::get('/participants', [ParticipantsController::class, 'index'])->name('participants.index');
         Route::get('/participants/{participant}/confirm_subscription', [ParticipantsController::class, 'confirmSubscription'])->name('participants.confirmSubscription');
+
+        Route::post('/subscriptions/{subscription}/confirm', [SubscriptionController::class, 'confirm'])->name('subscription.confirm');
     });
 
 });
