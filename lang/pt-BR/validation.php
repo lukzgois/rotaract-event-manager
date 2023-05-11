@@ -139,6 +139,7 @@ return [
     'uploaded'             => 'Ocorreu uma falha no upload do campo :attribute.',
     'url'                  => 'O campo :attribute tem um formato inválido.',
     'uuid' => 'O campo :attribute deve ser um UUID válido.',
+    'decimal' => 'O campo :attribute deve ser um número decimal válido.',
 
     /*
     |--------------------------------------------------------------------------
@@ -235,6 +236,8 @@ return [
         'emergency_contact_phone' => 'telefone de emergência',
         'zip_code' => 'cep',
         'emergency_contact_name' => 'nome do contato de emergência',
+
+        'ticket_batch' => 'lote de ingressos',
     ],
 
 ];
