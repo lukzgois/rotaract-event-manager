@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subscription;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +21,16 @@ class DashboardController extends Controller
 
     public function admin()
     {
-        return view('admin.dashboard');
+        $participants = User::participants()->count();
+
+        $confirmed = User::participants()->whereHas('subscription', function (Builder $query) {
+            $query->whereNotNull('paid_at');
+        })->count();
+
+        $pending = User::participants()->whereHas('subscription', function (Builder $query) {
+            $query->whereNull('paid_at');
+        })->count();
+
+        return view('admin.dashboard', compact('participants', 'confirmed', 'pending'));
     }
 }
