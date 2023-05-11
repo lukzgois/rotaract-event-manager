@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 class ParticipantsController extends Controller
 {
     CONST TICKET_BATCHES = [
-        '1º Lote' => '1º Lote',
-        '2º Lote' => '2º Lote',
-        '3º Lote' => '3º Lote',
-        'CCO' => 'CCO',
+        'first_batch' => '1º Lote',
+        'second_batch' => '2º Lote',
+        'third_batch' => '3º Lote',
+        'cco' => 'CCO',
     ];
 
     CONST PAYMENT_FORMS = [

@@ -1,11 +1,13 @@
 <?php
 
+use App\Mail\SubscriptionConfirmed;
 use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 beforeEach(function () {
-    $participant =  User::factory()->hasSubscription()->forClub()->create();
-    $this->subscription = $participant->subscription;
+    $this->participant = User::factory()->hasSubscription()->forClub()->create();
+    $this->subscription = $this->participant->subscription;
 });
 
 function sendRequest($data = []) {
@@ -119,3 +121,73 @@ it('validates the payment_type value (valid value)', function () {
     $response->assertValid(['payment_type']);
 });
 
+it('sets the paid_at date', function () {
+    $data = [
+        'payment_type' => 'credit_card',
+        'value' => '180,00',
+        'ticket_batch' => 'first_batch',
+    ];
+
+    $response =  sendRequest($data);
+
+    $response->assertValid();
+    $this->subscription->refresh();
+    expect($this->subscription->isPaid())->toBeTrue();
+});
+
+it('sets the value', function () {
+    $data = [
+        'payment_type' => 'credit_card',
+        'value' => '180,51',
+        'ticket_batch' => 'first_batch',
+    ];
+
+    $response =  sendRequest($data);
+
+    $response->assertValid();
+    $this->subscription->refresh();
+    expect($this->subscription->value)->toBe(180.51);
+});
+
+it('sets the ticket batc', function () {
+    $data = [
+        'payment_type' => 'credit_card',
+        'value' => '180,51',
+        'ticket_batch' => 'first_batch',
+    ];
+
+    $response =  sendRequest($data);
+
+    $response->assertValid();
+    $this->subscription->refresh();
+    expect($this->subscription->ticket_batch)->toBe('first_batch');
+});
+
+it('sends an email to the participant', function () {
+    Mail::fake();
+
+    $data = [
+        'payment_type' => 'credit_card',
+        'value' => '180,51',
+        'ticket_batch' => 'first_batch',
+    ];
+
+    sendRequest($data);
+
+    Mail::assertSent(SubscriptionConfirmed::class, function (SubscriptionConfirmed $mail) {
+        return $mail->hasTo($this->participant->email);
+    });
+});
+
+it('redirects back to the participants list', function () {
+    $data = [
+        'payment_type' => 'credit_card',
+        'value' => '180,51',
+        'ticket_batch' => 'first_batch',
+    ];
+
+    $response =  sendRequest($data);
+
+    $response->assertRedirectToRoute('participants.index');
+    $response->assertSessionHas('success');
+});

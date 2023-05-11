@@ -11,14 +11,14 @@
                     @csrf
 
                     <div>
-                        <x-input-label for="payment_form" value="Forma de Pagamento" />
+                        <x-input-label for="payment_type" value="Forma de Pagamento" />
 
-                        <x-select-input id="payment_form"
+                        <x-select-input id="payment_type"
                                         :options="$payment_forms"
-                                        :selected="old('payment_form')"
-                                        name="payment_form" required />
+                                        :selected="old('payment_type')"
+                                        name="payment_type" required />
 
-                        <x-input-error :messages="$errors->get('payment_form')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('payment_type')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
@@ -34,7 +34,7 @@
 
                     <div class="mt-4">
                         <x-input-label for="value" value="Valor" />
-                        <x-text-input id="value" type="text" name="value" :value="old('value') ?? '180'" required autofocus />
+                        <x-text-input id="value" type="text" name="value" :value="old('value') ?? '180,00'" required autofocus />
                         <x-input-error :messages="$errors->get('value')" class="mt-2" />
                     </div>
 
