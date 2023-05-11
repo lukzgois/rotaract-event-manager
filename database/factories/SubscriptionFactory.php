@@ -18,4 +18,14 @@ class SubscriptionFactory extends Factory
     {
         return [];
     }
+
+    public function confirmed()
+    {
+        return $this->state(fn (array $attributes) => [
+            'value' => '180',
+            'ticket_batch' => '1 Lote',
+            'payment_type' => 'pix',
+            'paid_at' => '2023-01-01',
+        ]);
+    }
 }

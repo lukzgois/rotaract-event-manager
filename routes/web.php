@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\ParticipantsController;
+use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'admin'])->name('admin.dashboard');
     Route::prefix('admin')->group(function() {
         Route::get('/participants', [ParticipantsController::class, 'index'])->name('participants.index');
+        Route::get('/participants/{participant}/confirm_subscription', [ParticipantsController::class, 'confirmSubscription'])->name('participants.confirmSubscription');
+
+        Route::post('/subscriptions/{subscription}/confirm', [SubscriptionController::class, 'confirm'])->name('subscription.confirm');
     });
 
 });
