@@ -35,8 +35,23 @@
                 </header>
             @endif
 
+
             <!-- Page Content -->
             <main>
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    @if(session()->has('error'))
+                        <div class="mt-8 bg-red-200 text-red-900 text-center rounded-lg p-4">
+                            {{ session()->get('error') }}
+                        </div>
+                    @endif
+
+                    @if(session()->has('success'))
+                        <div class="mt-8 bg-green-200 text-green-900 text-center rounded-lg p-4">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
+                </div>
+
                 {{ $slot }}
             </main>
         </div>

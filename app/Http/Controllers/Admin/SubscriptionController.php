@@ -18,6 +18,7 @@ class SubscriptionController extends Controller
 
         $subscription->confirm($request->safe());
         Mail::to($subscription->user)->send(new SubscriptionConfirmed($subscription));
+
         return redirect()->route('participants.index')->with('success', 'A inscrição foi confirmada com sucesso!');
     }
 }
