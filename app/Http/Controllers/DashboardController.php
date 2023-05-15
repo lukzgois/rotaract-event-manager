@@ -31,6 +31,13 @@ class DashboardController extends Controller
             $query->whereNull('paid_at');
         })->count();
 
-        return view('admin.dashboard', compact('participants', 'confirmed', 'pending'));
+        $subscriptions_per_club = Subscription::totalPerClub();
+
+        return view('admin.dashboard', compact(
+            'participants',
+            'confirmed',
+            'pending',
+            'subscriptions_per_club',
+        ));
     }
 }
