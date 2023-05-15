@@ -36,3 +36,18 @@ test('users can not authenticate with invalid password', function () {
 
     $this->assertGuest();
 });
+
+it('redirects admin users to the admin dashboard', function () {
+    $user = User::factory()
+        ->admin()
+        ->for(Club::factory())
+        ->create();
+
+    $response = $this->post('/login', [
+        'email' => $user->email,
+        'password' => 'password',
+    ]);
+
+    $this->assertAuthenticated();
+    $response->assertRedirect('/admin');
+});
