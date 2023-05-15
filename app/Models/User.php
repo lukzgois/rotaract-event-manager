@@ -18,6 +18,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    CONST ADMIN = 'admin';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -84,5 +86,10 @@ class User extends Authenticatable
     public function subscription(): HasOne
     {
         return $this->hasOne(Subscription::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->user_type == self::ADMIN;
     }
 }

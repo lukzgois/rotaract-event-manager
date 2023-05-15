@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class Subscription extends Model
 {
@@ -49,5 +50,20 @@ class Subscription extends Model
         $this->ticket_batch = $request->ticket_batch;
 
         $this->save();
+    }
+
+    public static function totalPerClub()
+    {
+        return self::select(DB::raw('
+                clubs.name,
+                count(subscriptions.id) as total,
+                count(subscriptions.id) FILTER (WHERE subscriptions.paid_at IS NULL) as pending,
+                count(subscriptions.id) FILTER (WHERE subscriptions.paid_at IS NOT NULL) as paid
+            '))
+            ->join('users', 'users.id', '=', 'subscriptions.user_id')
+            ->join('clubs', 'clubs.id', '=', 'users.club_id')
+            ->groupBy('clubs.name')
+            ->orderBy('clubs.name')
+            ->get();
     }
 }
