@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subscription;
 use App\Models\User;
+use App\Services\ReportsService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +31,7 @@ class DashboardController extends Controller
             $query->whereNull('paid_at');
         })->count();
 
-        $subscriptions_per_club = Subscription::totalPerClub();
+        $subscriptions_per_club = ReportsService::subscriptionsPerClub();
 
         return view('admin.dashboard', compact(
             'participants',
