@@ -8,10 +8,11 @@ $app_dir_staging = '/var/www/staging/app';
 
 @macro('deploy-staging', ['on' => 'web'])
     fetch_repo_staging
+    run_backup_staging
     run_composer_staging
+    compile_frontend_staging
     update_permissions_staging
     update_symlinks_staging
-    compile_frontend_staging
     reset_migrations_staging
     optimize_laravel_staging
     reload_php
@@ -21,6 +22,12 @@ $app_dir_staging = '/var/www/staging/app';
     [ -d {{ $release_dir_staging }} ] || mkdir {{ $release_dir_staging }};
     cd {{ $release_dir_staging }};
     git clone -b main {{ $repo }} {{ $release }};
+@endtask
+
+@task('run_backup_staging')
+    cd {{ $app_dir_staging }};
+    php artisan backup:run
+    cd {{ $release_dir_staging }}/{{ $release }};
 @endtask
 
 @task('run_composer_staging')
