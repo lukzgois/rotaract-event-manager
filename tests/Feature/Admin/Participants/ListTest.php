@@ -81,3 +81,37 @@ test('(confirmed subscription) does not render the button to confirm the subscri
 
     $response->assertDontSee("Confirmar inscrição");
 });
+
+it('allows the subscription_status filter', function($value) {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    $response = $this->actingAs($user)->get(ROUTE . "?subscription={$value}");
+
+    $response->assertOk();
+})->with(['pending', 'confirmed', null, '']);
+
+it('subscription_status filter does not allow other value than confirmed or pending', function() {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    $response = $this->actingAs($user)->get(ROUTE . "?subscription_status=invalid");
+
+    $response->assertRedirect(ROUTE);
+});
+
+it('filter by the confirmed subscription', function () {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    $confirmed = User::factory()->hasSubscription(['paid_at' => '2023-01-01'])->forClub()->create();
+    $pending = User::factory()->hasSubscription()->forClub()->create();
+    $response = $this->actingAs($user)->get(ROUTE . "?subscription_status=confirmed");
+
+    $response->assertSee($confirmed->name);
+    $response->assertDontSee($pending->name);
+});
+
+it('filter by pending subscriptions', function () {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    $confirmed = User::factory()->hasSubscription(['paid_at' => '2023-01-01'])->forClub()->create();
+    $pending = User::factory()->hasSubscription()->forClub()->create();
+    $response = $this->actingAs($user)->get(ROUTE . "?subscription_status=pending");
+
+    $response->assertSee($pending->name);
+    $response->assertDontSee($confirmed->name);
+});

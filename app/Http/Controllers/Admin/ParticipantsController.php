@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Participants\ListRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class ParticipantsController extends Controller
 {
@@ -20,10 +21,9 @@ class ParticipantsController extends Controller
         'credit_card' => 'Cartão de Crédito'
     ];
 
-    public function index()
+    public function index(ListRequest $request)
     {
-        $participants = User::participants()->orderBy('name')->paginate(10);
-
+        $participants = $this->fetchData($request);
         return view('admin.participants.index', compact('participants'));
     }
 
@@ -42,5 +42,24 @@ class ParticipantsController extends Controller
                 'participant',
             )
         );
+    }
+
+    private function fetchData($request)
+    {
+        $participants = User::participants();
+
+        if($request->subscription_status == 'confirmed') {
+            $participants = $participants->whereHas('subscription', function (Builder $query) {
+                $query->whereNotNull('paid_at');
+            });
+        }
+
+        if($request->subscription_status == 'pending') {
+            $participants = $participants->whereHas('subscription', function (Builder $query) {
+                $query->whereNull('paid_at');
+            });
+        }
+
+        return $participants->orderBy('name')->paginate(10)->withQueryString();;
     }
 }
