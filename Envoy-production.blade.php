@@ -8,10 +8,11 @@ $app_dir_production = '/var/www/production/app';
 
 @macro('deploy-production', ['on' => 'web'])
     fetch_repo_production
+    run_backup_production
     run_composer_production
     update_permissions_production
-    update_symlinks_production
     compile_frontend_production
+    update_symlinks_production
     run_migrations_production
     optimize_laravel_production
     reload_php
@@ -22,6 +23,13 @@ $app_dir_production = '/var/www/production/app';
     cd {{ $release_dir_production }};
     git clone -b production {{ $repo }} {{ $release }};
 @endtask
+
+@task('run_backup_production')
+    cd {{ $app_dir_production }};
+    php artisan backup:run
+    cd {{ $release_dir_production }}/{{ $release }};
+@endtask
+
 
 @task('run_composer_production')
     cd {{ $release_dir_production }}/{{ $release }};
