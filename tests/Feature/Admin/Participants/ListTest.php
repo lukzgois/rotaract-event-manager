@@ -65,3 +65,19 @@ it("renders the participants subscription's status (confirmed)", function () {
 
     $response->assertSee("Confirmada");
 });
+
+test('(pending subscription) renders the button to confirm the subscription', function () {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    User::factory()->hasSubscription()->forClub()->create();
+    $response = $this->actingAs($user)->get(ROUTE);
+
+    $response->assertSee("Confirmar inscrição");
+});
+
+test('(confirmed subscription) does not render the button to confirm the subscription', function () {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    User::factory()->hasSubscription(['paid_at' => '2023-01-01'])->forClub()->create();
+    $response = $this->actingAs($user)->get(ROUTE);
+
+    $response->assertDontSee("Confirmar inscrição");
+});

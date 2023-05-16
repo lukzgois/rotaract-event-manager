@@ -54,7 +54,9 @@
                                     <td class="p-4 whitespace-nowrap">
                                         <a href="#" class="text-blue-500 hover:underline">{{ __("View") }}</a><br>
                                         <a href="#" class="text-blue-500 hover:underline">{{ __("Edit") }}</a><br>
-                                        <a href="{{ route('participants.confirmSubscription', ['participant' => $participant->id]) }}" class="text-blue-500 hover:underline">{{ __("Confirm subscription") }}</a> <br>
+                                        @if($participant->subscription->isPending())
+                                            <a href="{{ route('participants.confirmSubscription', ['participant' => $participant->id]) }}" class="text-blue-500 hover:underline">{{ __("Confirm subscription") }}</a> <br>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
