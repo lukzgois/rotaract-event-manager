@@ -23,7 +23,7 @@ class ListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subscription_status' => Rule::in('confirmed', 'pending')
+            'subscription_status' => Rule::in('','confirmed', 'pending')
         ];
     }
 

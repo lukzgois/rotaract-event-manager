@@ -34,6 +34,49 @@
                                 </tr>
                             </thead>
 
+                            <tbody>
+                                <form method="get">
+                                    <tr>
+                                        <td class="p-2">
+                                            <x-text-input
+                                                id="name"
+                                                type="text"
+                                                name="name"
+                                                :value="request()->name"
+                                            />
+                                        </td>
+
+                                        <td class="p-2">
+                                            <x-text-input
+                                                id="nickname"
+                                                type="text"
+                                                name="nickname"
+                                                :value="request()->nickname"
+                                            />
+                                        </td>
+
+                                        <td class="p-2">
+                                            <x-select-input id="club_id"
+                                                            :options="$clubs"
+                                                            :selected="request()->club_id"
+                                                            name="club_id" />
+                                        </td>
+
+                                        <td class="p-2">
+                                            <x-select-input id="subscription_status"
+                                                            :options="$subscription_status_options"
+                                                            :selected="request()->subscription_status"
+                                                            name="subscription_status" />
+                                        </td>
+
+                                        <td class="whitespace-nowrap">
+                                            <x-primary-button type="submit">Filtrar</x-primary-button>
+                                            <x-secondary-link :href="route('participants.index')">Limpar</x-secondary-link>
+                                        </td>
+                                    </tr>
+                                </form>
+                            </tbody>
+
                             <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                             @foreach($participants as $participant)
                                 <tr class="text-gray-700 dark:text-gray-300">
