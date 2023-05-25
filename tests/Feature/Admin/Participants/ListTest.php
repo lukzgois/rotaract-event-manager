@@ -151,3 +151,21 @@ it('filters by the participant\'s nickname', function () {
     $response->assertDontSee('Fulano de Tal');
     $response->assertSee('Beltrano');
 });
+
+it('filters by the participant\'s club', function () {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    $first_participant = User::factory()
+        ->hasSubscription()
+        ->forClub()
+        ->create();
+    $second_participant = User::factory()
+        ->hasSubscription()
+        ->forClub()
+        ->create();
+
+    $response = $this->actingAs($user)->get(ROUTE . "?club_id={$first_participant->club_id}");
+
+    $response->assertSee($first_participant->name);
+    $response->assertDontSee($second_participant->name);
+});
+
