@@ -64,6 +64,10 @@ class ParticipantsController extends Controller
             $participants = $participants->where('name', 'ilike', "{$request->name}%");
         }
 
+        if($request->has('nickname')) {
+            $participants = $participants->where('nickname', 'ilike', "{$request->nickname}%");
+        }
+
         return $participants->orderBy('name')->paginate(10)->withQueryString();;
     }
 }
