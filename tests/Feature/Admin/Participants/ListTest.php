@@ -115,3 +115,21 @@ it('filter by pending subscriptions', function () {
     $response->assertSee($pending->name);
     $response->assertDontSee($confirmed->name);
 });
+
+it('filters by the participant name', function () {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    User::factory()
+        ->hasSubscription()
+        ->forClub()
+        ->count(2)
+        ->sequence(
+            ['name' => 'Fulano de Tal'],
+            ['name' => 'Beltrano'],
+        )
+        ->create();
+
+    $response = $this->actingAs($user)->get(ROUTE . "?name=ful");
+
+    $response->assertSee('Fulano de Tal');
+    $response->assertDontSee('Beltrano');
+});
