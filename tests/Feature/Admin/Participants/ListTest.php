@@ -115,3 +115,57 @@ it('filter by pending subscriptions', function () {
     $response->assertSee($pending->name);
     $response->assertDontSee($confirmed->name);
 });
+
+it('filters by the participant\'s name', function () {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    User::factory()
+        ->hasSubscription()
+        ->forClub()
+        ->count(2)
+        ->sequence(
+            ['name' => 'Fulano de Tal'],
+            ['name' => 'Beltrano'],
+        )
+        ->create();
+
+    $response = $this->actingAs($user)->get(ROUTE . "?name=ful");
+
+    $response->assertSee('Fulano de Tal');
+    $response->assertDontSee('Beltrano');
+});
+
+it('filters by the participant\'s nickname', function () {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    User::factory()
+        ->hasSubscription()
+        ->forClub()
+        ->count(2)
+        ->sequence(
+            ['nickname' => 'Fulano de Tal'],
+            ['nickname' => 'Beltrano'],
+        )
+        ->create();
+
+    $response = $this->actingAs($user)->get(ROUTE . "?nickname=bel");
+
+    $response->assertDontSee('Fulano de Tal');
+    $response->assertSee('Beltrano');
+});
+
+it('filters by the participant\'s club', function () {
+    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
+    $first_participant = User::factory()
+        ->hasSubscription()
+        ->forClub()
+        ->create();
+    $second_participant = User::factory()
+        ->hasSubscription()
+        ->forClub()
+        ->create();
+
+    $response = $this->actingAs($user)->get(ROUTE . "?club_id={$first_participant->club_id}");
+
+    $response->assertSee($first_participant->name);
+    $response->assertDontSee($second_participant->name);
+});
+
