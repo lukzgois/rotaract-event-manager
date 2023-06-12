@@ -21,13 +21,13 @@ class DashboardController extends Controller
 
     public function admin()
     {
-        $participants = User::participants()->count();
+        $participants = User::count();
 
-        $confirmed = User::participants()->whereHas('subscription', function (Builder $query) {
+        $confirmed = User::whereHas('subscription', function (Builder $query) {
             $query->whereNotNull('paid_at');
         })->count();
 
-        $pending = User::participants()->whereHas('subscription', function (Builder $query) {
+        $pending = User::whereHas('subscription', function (Builder $query) {
             $query->whereNull('paid_at');
         })->count();
 
