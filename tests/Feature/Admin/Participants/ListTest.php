@@ -75,8 +75,7 @@ test('(pending subscription) renders the button to confirm the subscription', fu
 });
 
 test('(confirmed subscription) does not render the button to confirm the subscription', function () {
-    $user = User::factory()->hasSubscription()->forClub()->create(['user_type' => 'admin']);
-    User::factory()->hasSubscription(['paid_at' => '2023-01-01'])->forClub()->create();
+    $user = User::factory()->hasSubscription(['paid_at' => '2023-01-01'])->forClub()->create(['user_type' => 'admin']);
     $response = $this->actingAs($user)->get(ROUTE);
 
     $response->assertDontSee("Confirmar inscrição");

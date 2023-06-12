@@ -53,7 +53,7 @@ class ParticipantsController extends Controller
 
     private function fetchData($request)
     {
-        $participants = User::participants();
+        $participants = User::query();
 
         if($request->subscription_status == 'confirmed') {
             $participants = $participants->whereHas('subscription', function (Builder $query) {
