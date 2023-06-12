@@ -11,7 +11,7 @@
         </p>
 
         <div class="flex flex-col space-y-4 sm:space-y-0 sm:space-x-4 sm:flex-row">
-            <a href="/register" class="text-center block no-underline border-white rounded border-2 w-48 p-2 text-xl hover:bg-sky-700">Inscreva-se</a>
+            <a href="/inscritos" class="text-center block no-underline border-white rounded border-2 w-48 p-2 text-xl hover:bg-sky-700">Lista de Inscritos</a>
             <a href="/login" class="text-center block no-underline border-white rounded border-2 w-48 p-2 text-xl hover:bg-sky-700">Entre</a>
         </div>
 

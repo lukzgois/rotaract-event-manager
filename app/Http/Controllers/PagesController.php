@@ -10,10 +10,11 @@ class PagesController extends Controller
     public function participants()
     {
         $participants = Club::join('users', 'clubs.id', '=', 'users.club_id')
+            ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
             ->orderBy('clubs.name')
             ->orderBy('users.name')
             ->select('users.name', 'clubs.name as club_name')
-            ->where('users.user_type', "=", "participant")
+            ->whereNotNull('subscriptions.paid_at')
             ->get();
 
         return view('participants', compact('participants'));
